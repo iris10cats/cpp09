@@ -10,6 +10,6 @@ class BitcoinExchange {
         BitcoinExchange(const BitcoinExchange& other);
         BitcoinExchange& operator=(const BitcoinExchange& other);
         ~BitcoinExchange();
-        void loadData(const std::string& filename);
-        void processData(const std::string& file);
+        void loadDatabase(const std::string& filename);
+        void processTXTfile(const std::string& file);
 };
