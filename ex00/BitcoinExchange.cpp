@@ -17,7 +17,7 @@ BitcoinExchange::~BitcoinExchange() {}
 void BitcoinExchange::loadData(const std::string& filename) {
     std::ifstream file(filename.c_str());
     if (!file.is_open()) {
-        throw std::runtime_error("filne didnt open"):
+        throw std::runtime_error("filne didnt open");
     }
     std::string first_line;
     if (!std::getline(file, first_line) || first_line != "date,exchange_rate") {
@@ -26,14 +26,18 @@ void BitcoinExchange::loadData(const std::string& filename) {
     std::string line;
     std::string date;
     std::string rate;
-    std::string::size_type comma = line.find(',');
+
 
     float RATE;
     while (std::getline(file, line)){
+        std::string::size_type comma = line.find(',');
+        if (comma == std::string::npos)
+            continue;
         date = line.substr(0, comma);
         rate = line.substr(comma + 1);
         std::istringstream rateStream(rate);
-        rateStream >> RATE;
+        if (!(rateStream >> RATE))
+            continue;
         map[date] = RATE;
     }
 
