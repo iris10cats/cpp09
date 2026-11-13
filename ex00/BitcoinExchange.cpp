@@ -1,4 +1,7 @@
 #include "BitcoinExchange.hpp"
+#include <exception>
+#include <iostream>
+#include <fstream>
 
 BitcoinExchange::BitcoinExchange() {}
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) : map(other.map) {}
@@ -10,12 +13,24 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
 }
 BitcoinExchange::~BitcoinExchange() {}
 
-BitcoinExchange::loadData(const std::string& file) {
-    std::ifstream File(file);
+BitcoinExchange::loadData(const std::string& filename) {
+    std::ifstream file(filename.c_str());
     if (!file.is_open()) {
-        std::cerr << "can not open file" << std::endl;
-        return;
+        throw std::runtime_error("filne didnt open"):
     }
     std::string line;
-    std::getline(file, line);
+    /*if (!std::getline(file, first_line) || first_line != "date,exchange_rate") {
+        throw std::runtime_error("invalid header");
+    } */
+
+    std::string date;
+    std::string rate;
+    float RATE;
+    while (std::getline(file, line)){
+        date = line.substr(0, ',');
+        rate = line.substr(',' + 1);
+        RATE = strtof(rate, NULL);
+        map[date] = RATE;
+    }
+
 }
