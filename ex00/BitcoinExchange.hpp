@@ -1,12 +1,14 @@
 #pragma once
+#include <map>
+#include <string>
 
 class BitcoinExchange {
     private:
         std::map<std::string, float> map;
-    pubic:
+    public:
         BitcoinExchange();
         BitcoinExchange(const BitcoinExchange& other);
-        Span& operator=(const BitcoinExchange& other);
+        BitcoinExchange& operator=(const BitcoinExchange& other);
         ~BitcoinExchange();
         void loadData(const std::string& file);
         void processData(const std::string& file);
